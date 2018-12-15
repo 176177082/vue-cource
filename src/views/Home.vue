@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <b>{{food}}</b>
     <button v-on:click="handleClick('back')">返回上一页</button>
     <button v-on:click="handleClick('push')">跳转到父页</button>
     <button v-on:click="handleClick('replace')">替换到父页</button>
@@ -18,6 +18,27 @@
     // components: {
     //   HelloWorld
     // },
+    props: {
+      food: {
+        type: String,
+        default: 'apple'
+      }
+    },
+    // 路由组件内进入守卫钩子，不可以使用this,此时组件还没有渲染
+    beforeRouteEnter (to, from, next) {
+      console.log(to)
+      console.log(from)
+      next(vm => {
+        console.log(vm)
+      })
+    },
+    // 路由组件内离开前守卫钩子，可以使用this
+    beforeRouteLeave (to, from, next) {
+      // 很有作用，用户离开前提醒用户保存和作其他操作
+      const leave = confirm('你确定要离开吗')
+      if (leave) next()
+      else next(false)
+    },
     methods: {
       handleClick (type) {
         // 返回上一页

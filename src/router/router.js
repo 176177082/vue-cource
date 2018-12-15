@@ -1,12 +1,28 @@
 import Home from '@/views/Home.vue'
-
+// 路由匹配有顺序，如果有重复，自上而下，先匹配到先用
 export default [
   {
     path: '/',
     // 别名，
     alias: '/home_page',
     name: 'home',
-    component: Home
+    component: Home,
+    // 路由函数模式传参
+    props: route => ({
+        food: route.query.food
+      }
+    )
+    // 路由独享
+    // beforeEnter: (to, from, next) => {
+    //   if (from.name === 'about') alert('这是从about来的')
+    //   else alert('这不是从about来的')
+    //   next()
+    // }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/login.vue')
   },
   {
     path: '/about',
@@ -14,13 +30,20 @@ export default [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    props: {
+      food: 'banana'
+    },
+    meta: {
+      title: '关于ABOUT页面'
+    }
   },
   {
     // 动态路由
     path: '/argu/:name',
     name: 'argu',
-    component: () => import('../views/argu.vue')
+    component: () => import('../views/argu.vue'),
+    props: true
   },
   {
     // 嵌套路由,访问父路由，只显示父路由，访问子路由父子都显示
@@ -57,5 +80,9 @@ export default [
         name: 'home'
       }
     }
+  },
+  {
+    path: '*',
+    component: () => import('../views/error_404.vue')
   }
 ]

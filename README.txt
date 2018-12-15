@@ -19,6 +19,22 @@
 第三课：路由详解（二）---进阶：
 1）路由组件传参
 2）HTML5 History模式
-3）导航守卫
+3）导航守卫,组件内守卫
 4）路由元信息
 5）过渡效果
+
+
+/**
+ * 1,一个完整的导航被触发
+ * 2，在失活的组件里，即将离开的组件里调用离开守卫 beforeRouteLeave
+ * 3，调用全局的前置守卫 beforeEach
+ * 4,在重用组件里调用 beforeRouteUpdate,新组件会调用beforeRouteEnter
+ * 5，调用路由独享的守卫beforeEnter
+ * 6,解析异步路由组件
+ * 7，在被激活的组件（即将进入的页面组件）里调用 beforeRouteEnter
+ * 8,调用全局的解析守卫 beforeResolve
+ * 9,导航被确认
+ * 10，调用全局的后置守卫 afterEach
+ * 11,触发DOM更新
+ * 12，用创建好的实例调用在beforeRouteEnter守卫里传给next的回调函数
+ */
