@@ -4,6 +4,7 @@
     <button v-on:click="handleClick('back')">返回上一页</button>
     <button v-on:click="handleClick('push')">跳转到父页</button>
     <button v-on:click="handleClick('replace')">替换到父页</button>
+    <button @click="getInfo">请求数据</button>
 
   </div>
 </template>
@@ -12,6 +13,7 @@
   // @ is an alias to /src
   // v-on 用在普通元素上时，监听原生 DOM 事件
   // import HelloWorld from '../components/HelloWorld.vue'
+  import { getUserInfo } from '../api/user'
 
   export default {
     name: 'home',
@@ -75,6 +77,11 @@
             name: 'parent'
           })
         }
+      },
+      getInfo () {
+        getUserInfo({ userId: 21 }).then(res => {
+          console.log('res:', res)
+        })
       }
     }
   }
