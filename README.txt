@@ -39,9 +39,12 @@
  * 12，用创建好的实例调用在beforeRouteEnter守卫里传给next的回调函数
  */
 
-第四课 状态管理
+第四、五、六课 状态管理
 
 1） bus
 2) VUEX--基础-state&getter
 3) Vuex--基础-mutation&action/module
 4) Vuex进阶
+
+
+mapState还没搞懂
