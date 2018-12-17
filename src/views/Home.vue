@@ -4,7 +4,8 @@
     <button v-on:click="handleClick('back')">返回上一页</button>
     <button v-on:click="handleClick('push')">跳转到父页</button>
     <button v-on:click="handleClick('replace')">替换到父页</button>
-    <button @click="getInfo">请求数据</button>
+    <button @click="getInfo" v-bind:style="{ background: bgColor }">请求数据</button>
+    <img :src="url">
 
   </div>
 </template>
@@ -20,6 +21,12 @@
     // components: {
     //   HelloWorld
     // },
+    data () {
+      return {
+        url: '',
+        bgColor: ''
+      }
+    },
     props: {
       food: {
         type: String,
@@ -81,6 +88,8 @@
       getInfo () {
         getUserInfo({ userId: 21 }).then(res => {
           console.log('res:', res)
+          this.url = res.data.img
+          this.bgColor = res.data.color
         })
       }
     }
