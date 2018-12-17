@@ -46,5 +46,9 @@
 3) Vuex--基础-mutation&action/module
 4) Vuex进阶
 
+严格模式，插件本地化存储
+
+vuex双向绑定
+
 
 mapState还没搞懂

@@ -1,9 +1,15 @@
 <template>
   <div>
     <p>I am store</p>
+    <!--
     <a-input v-model="inputValue"/>
+    -->
+    <!--
+    <a-input v-bind:value="stateValue" v-on:input="handleStateValueChange"/>
+    -->
+    <a-input v-model="stateValue"/>
     <a-input v-bind:value="inputValue" v-on:input="handleInput"/>
-    <p>{{inputValue}} -> lastLetter is {{inputValueLastLetter}}</p>
+    <p>{{stateValue}}  {{inputValue}} -> lastLetter is {{inputValueLastLetter}}</p>
     <a-show v-bind:content="inputValue"/>
 
     <p>{{ appName}}</p>
@@ -66,8 +72,18 @@
       // }),
       ...mapState({
         userName: state => state.user.userName,
-        todoList: state => state.todo.todoList
+        // todoList: state => state.todo.todoList
+        todoList: state => state.todo ? state.todo.todoList : [ ]
+        // stateValue: state => state.stateValue
       }),
+      stateValue: {
+        get () {
+          return this.$store.state.stateValue
+        },
+        set (value) {
+          this.SET_STATE_VALUE(value)
+        }
+      },
       inputValueLastLetter () {
         return this.inputValue.substr(-1, 1)
       },
@@ -85,7 +101,8 @@
     methods: {
       ...mapMutations([
         'SET_USER_NAME',
-        'SET_APP_NAME'
+        'SET_APP_NAME',
+        'SET_STATE_VALUE'
       ]),
       ...mapActions([
         'updateAppName'
@@ -107,6 +124,7 @@
         this.updateAppName()
       },
       changeuserName () {
+        // this.$store.state.username = 'hahaha' 错误方法
          this.SET_USER_NAME('newusername')
         // 还可以使用dispatch来触发这个action
         // this.$store.dispatch('updateAppName','123')
@@ -120,6 +138,9 @@
             ]
           }
         })
+      },
+      handleStateValueChange (val) {
+        this.SET_STATE_VALUE(val)
       }
     }
   }

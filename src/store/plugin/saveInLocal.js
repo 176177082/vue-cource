@@ -1,0 +1,9 @@
+export default store => {
+  console.log('store初始化')
+  // 666666
+  if (localStorage.state) store.replaceState(JSON.parse(localStorage.state))
+  store.subscribe((mutation, state) => {
+    console.log('提交mutation')
+    localStorage.state = JSON.stringify(state)
+  })
+}
